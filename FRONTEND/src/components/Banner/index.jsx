@@ -11,8 +11,7 @@ import Button from "../Button";
 import { useTheme } from "../../context/ThemeContext";
 
 export default function Banner() {
-    const { themeToggle } = useTheme();
-    const theme = localStorage.getItem("theme");
+    const { theme, themeToggle } = useTheme();
 
     return (
         <div
