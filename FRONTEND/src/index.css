@@ -1,1 +1,125 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+* {
+    font-family: "Inter", sans-serif;
+}
+
+/* tema */
+
+.theme-dark {
+    color: #ffffff;
+    background-color: #000000 !important;
+}
+
+.theme-light {
+    color: #000000;
+    background-color: #ffffff !important;
+}
+
+.theme-dark-gray {
+    color: #ffffff;
+    background-color: #1E1E20 !important;
+}
+
+
+/* button */
+
+.button {
+    display: flex;
+    padding: 6px 8px;
+    border-radius: 25px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: opacity 400ms;
+}
+
+.button:hover {
+    opacity: 0.8;
+}
+
+.button.dark {
+    color: #ffffff;
+    background-color: #313234;
+}
+
+.button.light,
+.button.link-dark:hover,
+.button.link-light:hover {
+    color: #ffffff;
+    background-color: #11b0c8;
+}
+
+.button.link-light:hover > img {
+    filter: invert(1);
+}
+
+
+
+.light.dark {
+    color: white;
+    background-color: #313234;
+}
+
+.theme-dark {
+    color: white;
+    background-color: #1e1e20;
+}
+
+.card-light {
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+
+.card-dark {
+    background-color: #1a1a1a;
+    transition: background-color 0.3s ease;
+}
+
+.card-dark:hover {
+    background-color: #313234;
+}
+
+.card-dark:hover .button,
+.card-light:hover .button {
+    color: white;
+    background-color: #11b0c8;
+}
+
+.card-light:hover {
+    background-color: #f1f1f1;
+}
+
+.card-light.button {
+    color: black;
+    background-color: transparent;
+}
+
+.card-light:hover .button img {
+    filter: invert(1);
+}
+
+.card-dark.button {
+    color: white;
+    background-color: #313234;
+}
+
+.card-dark .button img {
+    filter: invert(1);
+}
+
+
+.input-light::placeholder {
+    color: #313234;
+}
+
+.input-dark::placeholder {
+    color: #e4f4f4;
+}
+
+.input-light,
+.input-dark {
+    border: 1px solid #313234;
+}
