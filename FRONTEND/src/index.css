@@ -56,17 +56,7 @@
     filter: invert(1);
 }
 
-
-
-.light.dark {
-    color: white;
-    background-color: #313234;
-}
-
-.theme-dark {
-    color: white;
-    background-color: #1e1e20;
-}
+/* card */
 
 .card-light {
     background-color: #f9f9f9;
@@ -110,6 +100,7 @@
     filter: invert(1);
 }
 
+/* input */
 
 .input-light::placeholder {
     color: #313234;
