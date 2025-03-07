@@ -78,15 +78,19 @@ export default function Banner() {
                     </div>
                 </div>
 
-                <div className="lg:w-1/2 lg:h-full">
+                <div className="lg:w-1/2 lg:h-[calc(100vh-100px)]">
                     <img
-                        className="lg:w-full"
+                        className={`lg:w-full lg:h-full ${
+                            theme === "light"
+                                ? "image-banner-light"
+                                : "image-banner-dark"
+                        }`}
                         src={
                             theme === "light"
                                 ? LightImageBanner
                                 : DarkImageBanner
                         }
-                        alt={`${theme} banner`}
+                        alt=""
                     />
                 </div>
             </div>

@@ -19,10 +19,57 @@ import Footer from "../../components/Footer";
 
 import { useTheme } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { api } from "../../services/api";
 
 export default function Home() {
     const { theme } = useTheme();
     const navigate = useNavigate();
+    const [characters, setCharacters] = useState([]);
+    const [episodes, setEpisodes] = useState([]);
+    const [locations, setLocations] = useState([]);
+    const [filter, setFilter] = useState("");
+
+    useEffect(() => {
+        loadCharacter();
+        loadEpisode();
+        loadLocation();
+    }, []);
+
+    const toggleFilter = (newFilter) => {
+        if (newFilter === filter) {
+            setFilter("");
+        } else {
+            setFilter(newFilter);
+        }
+    };
+
+    const loadCharacter = async () => {
+        try {
+            const response = await api.get("/character");
+            setCharacters(response.data.results);
+        } catch (error) {
+            console.error("Erro ao buscar personagens:", error);
+        }
+    };
+
+    const loadEpisode = async () => {
+        try {
+            const response = await api.get("/episode");
+            setEpisodes(response.data.results);
+        } catch (error) {
+            console.error("Erro ao buscar episódios:", error);
+        }
+    };
+
+    const loadLocation = async () => {
+        try {
+            const response = await api.get("/location");
+            setLocations(response.data.results);
+        } catch (error) {
+            console.error("Erro ao buscar localizações:", error);
+        }
+    };
 
     // personagem
     const navigateToCharacterPage = () => {
@@ -59,7 +106,8 @@ export default function Home() {
                                     theme === "dark"
                                         ? "link-dark"
                                         : "link-light"
-                                }`}
+                                } ${filter === "character" && "active"}`}
+                                click={() => toggleFilter("character")}
                             />
                             <Button
                                 image={theme === "dark" ? Planet : PlanetLight}
@@ -68,7 +116,8 @@ export default function Home() {
                                     theme === "dark"
                                         ? "link-dark"
                                         : "link-light"
-                                }`}
+                                } ${filter === "location" && "active"}`}
+                                click={() => toggleFilter("location")}
                             />
                             <Button
                                 image={theme === "dark" ? Play : PlayLight}
@@ -77,13 +126,18 @@ export default function Home() {
                                     theme === "dark"
                                         ? "link-dark"
                                         : "link-light"
-                                }`}
+                                } ${filter === "episode" && "active"}`}
+                                click={() => toggleFilter("episode")}
                             />
                         </div>
                     </div>
                 </div>
 
-                <div className="lg:mt-6">
+                <div
+                    className={`lg:mt-6 ${
+                        filter !== "character" && filter !== "" && "hidden"
+                    }`}
+                >
                     <div className="flex items-center gap-4 mt-10 mb-5">
                         <p className="font-bold">Personagens</p>
                         <Button
@@ -91,23 +145,29 @@ export default function Home() {
                             text="Ver todos"
                             alt="ver todos"
                             className={`button ${
-                                theme === "light" ? "light" : "dark"
+                                theme === "light" ? "light" : "link-dark"
                             }`}
                             click={navigateToCharacterPage}
                         />
                     </div>
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
-                        <Card />
+                    <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3">
+                        {characters.slice(0, 8).map((character) => (
+                            <Card
+                                key={character.id}
+                                image={character.image}
+                                name={character.name}
+                                status={character.status}
+                                species={character.species}
+                                originName={character.origin.name}
+                            />
+                        ))}
                     </div>
                 </div>
-                <div>
+                <div
+                    className={`${
+                        filter !== "episode" && filter !== "" && "hidden"
+                    }`}
+                >
                     <div className="flex items-center gap-4 mt-10 mb-5">
                         <p className="font-bold">Episódios</p>
                         <Button
@@ -115,19 +175,25 @@ export default function Home() {
                             text="Ver todos"
                             alt="ver todos"
                             className={`button ${
-                                theme === "light" ? "light" : "dark"
+                                theme === "light" ? "light" : "link-dark"
                             }`}
                         />
                     </div>
-                    <div className="grid grid-cols1 gap-4 m-auto sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
-                        <CardEpisode />
-                        <CardEpisode />
-                        <CardEpisode />
-                        <CardEpisode />
-                        <CardEpisode />
+                    <div className="grid grid-cols1 gap-4 m-auto sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-none lg:flex lg:flex-wrap">
+                        {episodes.slice(0, 6).map((episode) => (
+                            <CardEpisode
+                                key={episode.id}
+                                name={episode.name}
+                                episode={episode.episode}
+                            />
+                        ))}
                     </div>
                 </div>
-                <div>
+                <div
+                    className={`${
+                        filter !== "location" && filter !== "" && "hidden"
+                    }`}
+                >
                     <div className="flex items-center gap-4 mt-10 mb-8">
                         <p className="font-bold">Localizações</p>
                         <Button
@@ -135,31 +201,35 @@ export default function Home() {
                             text="Ver todos"
                             alt="ver todos"
                             className={`button ${
-                                theme === "light" ? "light" : "dark"
+                                theme === "light" ? "light" : "link-dark"
                             }`}
                         />
                     </div>
-                    <div className="grid grid-cols1 gap-4 gap-y-8 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7">
-                        <CardPlanet />
-                        <CardPlanet />
-                        <CardPlanet />
-                        <CardPlanet />
-                        <CardPlanet />
-                        <CardPlanet />
-                        <CardPlanet />
+                    <div className="grid grid-cols1 gap-4 gap-y-8 sm:grid-cols-2 md:grid-cols-4">
+                        {locations.slice(0, 8).map((location) => (
+                            <CardPlanet
+                                key={location.id}
+                                type={location.type}
+                                name={location.name}
+                            />
+                        ))}
                     </div>
                 </div>
                 <div className="flex items-center justify-between my-8">
                     <img src={LogoA} alt="logo" />
 
-                    <div className="flex items-center gap-1 h-[40px] cursor-pointer hover:underline">
-                        <span>Voltar ao topo</span>
-
+                    <button
+                        className="flex items-center cursor-pointer hover:text-[#11b0c8]"
+                        onClick={() =>
+                            window.scrollTo({ top: 0, behavior: "smooth" })
+                        }
+                    >
+                        Voltar ao topo
                         <img
                             src={theme === "dark" ? ArrowUpDark : ArrowUpLight}
                             alt="voltar ao topo"
                         />
-                    </div>
+                    </button>
                 </div>
             </div>
             <hr className="w-[95%] m-auto" />

@@ -10,18 +10,20 @@
 .theme-dark {
     color: #ffffff;
     background-color: #000000 !important;
+    transition: background-color 200ms ease-in;
 }
 
 .theme-light {
     color: #000000;
     background-color: #ffffff !important;
+    transition: background-color 200ms ease-in;
 }
 
 .theme-dark-gray {
     color: #ffffff;
-    background-color: #1E1E20 !important;
+    background-color: #1e1e20 !important;
+    transition: background-color 200ms ease-in;
 }
-
 
 /* button */
 
@@ -40,7 +42,7 @@
     opacity: 0.8;
 }
 
-.button.dark {
+.button.link-dark {
     color: #ffffff;
     background-color: #313234;
 }
@@ -52,9 +54,17 @@
     background-color: #11b0c8;
 }
 
-.button.link-light:hover > img {
+.button.link-light:hover > img,
+.button.link-light.active > img {
     filter: invert(1);
 }
+
+
+.button.active {
+    color: #ffffff;
+    background-color: #11b0c8;
+}
+
 
 /* card */
 
@@ -113,4 +123,36 @@
 .input-light,
 .input-dark {
     border: 1px solid #313234;
+}
+
+/* image banner */
+
+@keyframes transition-image-left {
+      0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes transition-image-right {
+      0% {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.image-banner-light {
+    animation: transition-image-left 1s ease-in-out;
+}
+
+.image-banner-dark {
+    animation: transition-image-right 1s ease-in-out;
 }

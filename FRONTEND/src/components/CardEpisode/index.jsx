@@ -6,18 +6,25 @@ import PlayLight from "../../assets/PlayLight.png";
 import Info from "../../assets/Info.svg";
 import Heart from "../../assets/HeartFavorite.png";
 
-export default function CardEpisode() {
+export default function CardEpisode({ name, episode }) {
     const { theme } = useTheme();
 
     return (
         <div
-            className={`rounded-lg p-3 shadow-md ${
+            className={`rounded-lg p-3 shadow-md lg:basis-90 lg:grow  ${
                 theme === "light" ? "card-light" : "card-dark"
             }`}
         >
-            <p className="flex gap-2 text-lg mb-3 lg:text-base">
-                <img src={theme === "dark" ? Play : PlayLight} alt="" /> Pilot | S01E01
-            </p>
+            <div className="flex gap-2 ">
+                <img
+                    style={{ width: "auto", height: "24px" }}
+                    src={theme === "dark" ? Play : PlayLight}
+                    alt="icon play"
+                />
+                <p className="text-base mb-3 lg:text-base">
+                    {name} | {episode}
+                </p>
+            </div>
             <div className="flex justify-between">
                 <Button
                     image={Info}

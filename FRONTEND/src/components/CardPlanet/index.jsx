@@ -6,31 +6,33 @@ import Heart from "../../assets/HeartFavorite.png";
 import { useTheme } from "../../context/ThemeContext";
 import Button from "../Button";
 
-export default function CardPlanet() {
+export default function CardPlanet({ type, name }) {
     const { theme } = useTheme();
     return (
         <div
-            className={`rounded-lg p-3 flex flex-col items-center relative shadow-md ${
+            className={`flex flex-col items-center relative rounded-lg p-3 shadow-md md:h-[210px] ${
                 theme === "light" ? "card-light" : "card-dark"
             }`}
         >
             <img
-                className="absolute bottom-40"
+                className="absolute bottom-29 md:bottom-48"
                 style={{ width: "38px", height: "auto" }}
                 src={theme === "light" ? PlanetLight : PlanetDark}
                 alt=""
             />
-            <div className="flex flex-col items-center gap-3 mt-3">
+            <div className="w-full h-full flex flex-col justify-center items-center gap-3 mt-3">
                 <div className="text-center">
-                    <p>Planet</p>
-                    <p className="text-[#11B0C8]">Earth (C-137)</p>
+                    <p>{type}</p>
+                    <p className="text-[#11B0C8]">{name}</p>
                 </div>
-                <Button
-                    image={Info}
-                    text="Saiba mais"
-                    className={`button ${theme === "light" ? "" : "dark"}`}
-                />
-                <img src={Heart} alt="favorite" />
+                <div className="w-full flex justify-around md:flex-col md:items-center md:gap-3">
+                    <Button
+                        image={Info}
+                        text="Saiba mais"
+                        className={`button ${theme === "light" ? "" : "dark"}`}
+                    />
+                    <img src={Heart} alt="favorite" />
+                </div>
             </div>
         </div>
     );
