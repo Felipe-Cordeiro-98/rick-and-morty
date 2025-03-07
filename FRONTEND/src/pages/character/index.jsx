@@ -1,4 +1,4 @@
-import Image from "../../assets/Image.png";
+import Image from "../../assets/image.png";
 import Heart from "../../assets/Heart.png";
 import Play from "../../assets/Play.png";
 import PlayLight from "../../assets/PlayLight.png";
