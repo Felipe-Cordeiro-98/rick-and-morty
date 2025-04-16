@@ -1,6 +1,6 @@
 export default function Button({ img, alt, text, className, onClick }) {
     return (
-        <button className={`${className} flex items-center gap-1 rounded-3xl text-sm px-3 py-2 cursor-pointer`}
+        <button className={`${className} flex items-center gap-1 rounded-3xl text-sm px-3 py-2 cursor-pointer hover:opacity-90`}
         onClick={onClick}>
             <img width="21px" height="18px" src={img} alt={alt} />
             {text}
