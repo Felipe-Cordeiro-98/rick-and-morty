@@ -3,6 +3,10 @@ import IconLink from "../components/IconLink";
 import HeartIcon from "../assets/icons/heart.svg";
 import SunIcon from "../assets/icons/sun.svg";
 import MoonIcon from "../assets/icons/moon.svg";
+import SmileyIcon from "../assets/icons/smiley.svg";
+import PlanetIcon from "../assets/icons/planet.svg";
+import PlayIcon from "../assets/icons/play.svg";
+import MagnifyingGlassIcon from "../assets/icons/magnifyingGlass.svg";
 import Logo from "../assets/logoA.png";
 import HeroLight from "../assets/heroLight.png";
 
@@ -17,21 +21,16 @@ export default function Home() {
                         <img className="w-50 h-auto" src={Logo} alt="Rick and Morty" />
                     </Link>
 
-                    <IconLink
-                        icon={HeartIcon}
-                        text="Lista de favoritos"
-                        to="/"
-                        className="bg-primary text-white"
-                    />
+                    <IconLink icon={HeartIcon} text="Lista de favoritos" to="/" className="bg-primary text-white" />
                 </header>
-                <div className="grow flex border-b border-primary">
+                <div className="grow flex border-b-2 border-primary">
                     <div className="grow w-1/2 flex flex-col justify-center items-center">
                         <div>
                             <div className="mb-16">
                                 <h1 className="text-5xl font-bold mb-6">
                                     Saiba tudo em <br /> um só <span className="text-primary">lugar.</span>
                                 </h1>
-                                <p className="text-[#313234]">Personagens, localizações, eposódios e muito mais.</p>
+                                <p className="text-[#313234]">Personagens, localizações, episódios e muito mais.</p>
                             </div>
                             <div>
                                 <div className="flex gap-1 mb-6">
@@ -49,7 +48,31 @@ export default function Home() {
                 </div>
             </div>
 
-            <main></main>
+            <main>
+                <div className="px-10 mt-16">
+                    <div className="flex justify-between items-center mb-100">
+
+                        <div className="min-w-100 relative select-none">
+                            <input
+                                className="w-full pl-4 pr-14 py-2 border rounded-4xl"
+                                type="text"
+                                placeholder="Personagem, eposódio, localização..."
+                            />
+                            <img className="absolute top-1/2 right-4 -translate-y-1/2" src={MagnifyingGlassIcon} alt="" width={32} height={32} />
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                            <p>Filtrar por:</p>
+
+                            <div className="flex gap-3">
+                                <IconButton icon={SmileyIcon} text="Personagens" className="bg-primary text-white" />
+                                <IconButton icon={PlanetIcon} text="Localizações" />
+                                <IconButton icon={PlayIcon} text="Episódios" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </>
     );
 }
