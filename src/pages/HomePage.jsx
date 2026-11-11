@@ -7,6 +7,7 @@ import SmileyIcon from "../assets/icons/smiley.svg";
 import PlanetIcon from "../assets/icons/planet.svg";
 import PlayIcon from "../assets/icons/play.svg";
 import MagnifyingGlassIcon from "../assets/icons/magnifyingGlass.svg";
+import SquaresFourIcon from "../assets/icons/squaresFour.svg";
 import Logo from "../assets/logoA.png";
 import HeroLight from "../assets/heroLight.png";
 
@@ -81,7 +82,7 @@ export default function Home() {
                     <section className="mb-16">
                         <div className="flex items-center gap-4 mb-8">
                             <h2 className="text-2xl font-bold">Personagens</h2>
-                            <IconButton icon={""} text="Ver Todos" className="bg-primary text-white" />
+                            <IconButton icon={SquaresFourIcon} text="Ver Todos" className="bg-primary text-white" />
                         </div>
 
                         <div>{/* cards */}</div>
@@ -91,7 +92,7 @@ export default function Home() {
                     <section className="mb-16">
                         <div className="flex items-center gap-4 mb-8">
                             <h2 className="text-2xl font-bold">Episódios</h2>
-                            <IconButton icon={""} text="Ver Todos" className="bg-primary text-white" />
+                            <IconButton icon={SquaresFourIcon} text="Ver Todos" className="bg-primary text-white" />
                         </div>
 
                         <div>{/* cards */}</div>
@@ -101,7 +102,7 @@ export default function Home() {
                     <section className="mb-16">
                         <div className="flex items-center gap-4 mb-8">
                             <h2 className="text-2xl font-bold">Localizações</h2>
-                            <IconButton icon={""} text="Ver Todos" className="bg-primary text-white" />
+                            <IconButton icon={SquaresFourIcon} text="Ver Todos" className="bg-primary text-white" />
                         </div>
 
                         <div>{/* cards */}</div>
