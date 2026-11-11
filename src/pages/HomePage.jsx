@@ -49,16 +49,21 @@ export default function Home() {
             </div>
 
             <main>
-                <div className="px-10 mt-16">
-                    <div className="flex justify-between items-center mb-100">
-
+                <div className="px-10">
+                    <div className="flex justify-between items-center my-16">
                         <div className="min-w-100 relative select-none">
                             <input
                                 className="w-full pl-4 pr-14 py-2 border rounded-4xl"
                                 type="text"
                                 placeholder="Personagem, eposódio, localização..."
                             />
-                            <img className="absolute top-1/2 right-4 -translate-y-1/2" src={MagnifyingGlassIcon} alt="" width={32} height={32} />
+                            <img
+                                className="absolute top-1/2 right-4 -translate-y-1/2"
+                                src={MagnifyingGlassIcon}
+                                alt=""
+                                width={32}
+                                height={32}
+                            />
                         </div>
 
                         <div className="flex items-center gap-3">
@@ -71,6 +76,36 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
+
+                    {/* characters */}
+                    <section className="mb-16">
+                        <div className="flex items-center gap-4 mb-8">
+                            <h2 className="text-2xl font-bold">Personagens</h2>
+                            <IconButton icon={""} text="Ver Todos" className="bg-primary text-white" />
+                        </div>
+
+                        <div>{/* cards */}</div>
+                    </section>
+
+                    {/* episodes */}
+                    <section className="mb-16">
+                        <div className="flex items-center gap-4 mb-8">
+                            <h2 className="text-2xl font-bold">Episódios</h2>
+                            <IconButton icon={""} text="Ver Todos" className="bg-primary text-white" />
+                        </div>
+
+                        <div>{/* cards */}</div>
+                    </section>
+
+                    {/* locations */}
+                    <section className="mb-16">
+                        <div className="flex items-center gap-4 mb-8">
+                            <h2 className="text-2xl font-bold">Localizações</h2>
+                            <IconButton icon={""} text="Ver Todos" className="bg-primary text-white" />
+                        </div>
+
+                        <div>{/* cards */}</div>
+                    </section>
                 </div>
             </main>
         </>
