@@ -1,5 +1,3 @@
-import IconButton from "../components/IconButton";
-import IconLink from "../components/IconLink";
 import HeartIcon from "../assets/icons/heart.svg";
 import SunIcon from "../assets/icons/sun.svg";
 import MoonIcon from "../assets/icons/moon.svg";
@@ -11,9 +9,40 @@ import SquaresFourIcon from "../assets/icons/squaresFour.svg";
 import Logo from "../assets/logoA.png";
 import HeroLight from "../assets/heroLight.png";
 
+import IconLink from "../components/IconLink";
+import IconButton from "../components/IconButton";
+import CharacterCard from "../components/CharacterCard";
+
 import { Link } from "react-router";
+import { useState, useEffect } from "react";
 
 export default function Home() {
+    const [characters, setCharacters] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        async function fetchCharacters() {
+            try {
+                const response = await fetch("https://rickandmortyapi.com/api/character");
+
+                if (!response.ok) {
+                    throw new Error("Erro ao buscar personagens");
+                }
+
+                const data = await response.json();
+
+                setCharacters(data.results);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchCharacters();
+    }, []);
+
     return (
         <>
             <div className="min-h-screen flex flex-col">
@@ -85,7 +114,17 @@ export default function Home() {
                             <IconButton icon={SquaresFourIcon} text="Ver Todos" className="bg-primary text-white" />
                         </div>
 
-                        <div>{/* cards */}</div>
+                        {/* cards */}
+                        <div className="grid grid-cols-4 gap-4">
+                            {characters.slice(0, 8).map((character) => (
+                                <CharacterCard 
+                                    image={character.image}
+                                    name={character.name}
+                                    specie={character.species}
+                                    locationName={character.origin.name}
+                                 />
+                            ))}
+                        </div>
                     </section>
 
                     {/* episodes */}
