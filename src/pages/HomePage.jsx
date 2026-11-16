@@ -12,12 +12,14 @@ import HeroLight from "../assets/heroLight.png";
 import IconLink from "../components/IconLink";
 import IconButton from "../components/IconButton";
 import CharacterCard from "../components/CharacterCard";
+import EpisodeCard from "../components/EpisodeCard";
 
 import { Link } from "react-router";
 import { useState, useEffect } from "react";
 
 export default function Home() {
     const [characters, setCharacters] = useState([]);
+    const [episodes, setEpisodes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -41,6 +43,28 @@ export default function Home() {
         }
 
         fetchCharacters();
+    }, []);
+
+    useEffect(() => {
+        async function fetchEpisodes() {
+            try {
+                const response = await fetch("https://rickandmortyapi.com/api/episode");
+
+                if (!response.ok) {
+                    throw new Error("Erro ao buscar episódios");
+                }
+
+                const data = await response.json();
+
+                setEpisodes(data.results);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchEpisodes();
     }, []);
 
     return (
@@ -117,12 +141,12 @@ export default function Home() {
                         {/* cards */}
                         <div className="grid grid-cols-4 gap-4">
                             {characters.slice(0, 8).map((character) => (
-                                <CharacterCard 
+                                <CharacterCard
                                     image={character.image}
                                     name={character.name}
                                     specie={character.species}
                                     locationName={character.origin.name}
-                                 />
+                                />
                             ))}
                         </div>
                     </section>
@@ -134,7 +158,12 @@ export default function Home() {
                             <IconButton icon={SquaresFourIcon} text="Ver Todos" className="bg-primary text-white" />
                         </div>
 
-                        <div>{/* cards */}</div>
+                        {/* cards */}
+                        <div className="grid grid-cols-4 gap-4">
+                            {episodes.slice(0, 4).map((episode) => (
+                                <EpisodeCard key={episode.id} data={episode} />
+                            ))}
+                        </div>
                     </section>
 
                     {/* locations */}
