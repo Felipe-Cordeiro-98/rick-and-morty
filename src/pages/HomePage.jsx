@@ -24,11 +24,12 @@ import { useCharacters } from "../hooks/useCharacters";
 import { useEpisodes } from "../hooks/useEpisodes";
 import { useLocations } from "../hooks/useLocations";
 import EpisodeCardSkeleton from "../components/cards/EpisodeCardSkeleton";
+import LocationCardSkeleton from "../components/cards/LocationCardSkeleton";
 
 export default function Home() {
     const { characters, loading: charactersLoading, error: charactersError } = useCharacters();
     const { episodes, loading: episodesLoading, error: episodesError } = useEpisodes();
-    const { locations } = useLocations();
+    const { locations, loading: locationsLoading, error: locationsError } = useLocations();
 
     return (
         <>
@@ -159,14 +160,28 @@ export default function Home() {
                     <section className="mb-20">
                         <div className="flex items-center gap-4 mb-10">
                             <h2 className="text-2xl font-bold">Localizações</h2>
-                            <IconButton icon={SquaresFourIcon} text="Ver Todos" className="bg-primary text-white" />
+                            <IconLink
+                                icon={SquaresFourIcon}
+                                text="Ver todos"
+                                to="/locations"
+                                className="bg-primary text-white"
+                            />
                         </div>
 
                         {/* cards */}
                         <div className="grid grid-cols-5 gap-4">
-                            {locations.slice(0, 5).map((location) => (
-                                <LocationCard key={location.id} data={location} />
-                            ))}
+                            {locationsLoading
+                                ? Array.from({ length: 5 }).map((_, index) => <LocationCardSkeleton key={index} />)
+                                : locations
+                                      .slice(0, 5)
+                                      .map((location) => (
+                                          <LocationCard
+                                              key={location.id}
+                                              id={location.id}
+                                              name={location.name}
+                                              type={location.type}
+                                          />
+                                      ))}
                         </div>
                     </section>
 
