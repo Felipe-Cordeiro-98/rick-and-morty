@@ -19,39 +19,14 @@ import LocationCard from "../components/LocationCard";
 import Footer from "../components/Footer";
 
 import { Link } from "react-router";
-import { useState, useEffect } from "react";
 import { useCharacters } from "../hooks/useCharacters";
 import { useEpisodes } from "../hooks/useEpisodes";
+import { useLocations } from "../hooks/useLocations";
 
 export default function Home() {
     const { characters } = useCharacters();
     const { episodes } = useEpisodes();
-    const [locations, setLocations] = useState([]);
-
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
-    useEffect(() => {
-        async function fetchLocations() {
-            try {
-                const response = await fetch("https://rickandmortyapi.com/api/location");
-
-                if (!response.ok) {
-                    throw new Error("Erro ao buscar localizações");
-                }
-
-                const data = await response.json();
-
-                setLocations(data.results);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchLocations();
-    }, []);
+    const { locations } = useLocations();
 
     return (
         <>
