@@ -97,7 +97,12 @@ export default function Home() {
                     <section className="mb-16">
                         <div className="flex items-center gap-4 mb-8">
                             <h2 className="text-2xl font-bold">Personagens</h2>
-                            <IconButton icon={SquaresFourIcon} text="Ver Todos" className="bg-primary text-white" />
+                            <IconLink
+                                icon={SquaresFourIcon}
+                                text="Ver todos"
+                                to="/characters"
+                                className="bg-primary text-white"
+                            />
                         </div>
 
                         {/* cards */}
@@ -109,6 +114,7 @@ export default function Home() {
                                       .map((character) => (
                                           <CharacterCard
                                               key={character.id}
+                                              id={character.id}
                                               image={character.image}
                                               name={character.name}
                                               status={character.status}
