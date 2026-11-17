@@ -6,6 +6,8 @@ import PlanetIcon from "../assets/icons/planet.svg";
 import PlayIcon from "../assets/icons/play.svg";
 import MagnifyingGlassIcon from "../assets/icons/magnifyingGlass.svg";
 import SquaresFourIcon from "../assets/icons/squaresFour.svg";
+import ArrowCircleUpIcon from "../assets/icons/arrowCircleUp.svg";
+
 import Logo from "../assets/logoA.png";
 import HeroLight from "../assets/heroLight.png";
 
@@ -13,37 +15,20 @@ import IconLink from "../components/IconLink";
 import IconButton from "../components/IconButton";
 import CharacterCard from "../components/CharacterCard";
 import EpisodeCard from "../components/EpisodeCard";
+import LocationCard from "../components/LocationCard";
+import Footer from "../components/Footer";
 
 import { Link } from "react-router";
 import { useState, useEffect } from "react";
+import { useCharacters } from "../hooks/useCharacters"
 
 export default function Home() {
-    const [characters, setCharacters] = useState([]);
+    const { characters } = useCharacters();
     const [episodes, setEpisodes] = useState([]);
+    const [locations, setLocations] = useState([]);
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    useEffect(() => {
-        async function fetchCharacters() {
-            try {
-                const response = await fetch("https://rickandmortyapi.com/api/character");
-
-                if (!response.ok) {
-                    throw new Error("Erro ao buscar personagens");
-                }
-
-                const data = await response.json();
-
-                setCharacters(data.results);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchCharacters();
-    }, []);
 
     useEffect(() => {
         async function fetchEpisodes() {
@@ -67,9 +52,31 @@ export default function Home() {
         fetchEpisodes();
     }, []);
 
+    useEffect(() => {
+        async function fetchLocations() {
+            try {
+                const response = await fetch("https://rickandmortyapi.com/api/location");
+
+                if (!response.ok) {
+                    throw new Error("Erro ao buscar localizações");
+                }
+
+                const data = await response.json();
+
+                setLocations(data.results);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchLocations();
+    }, []);
+
     return (
         <>
-            <div className="min-h-screen flex flex-col">
+            <div id="hero" className="min-h-screen flex flex-col">
                 <header className="flex justify-between items-center px-6 py-4">
                     <Link to="/">
                         <img className="w-50 h-auto" src={Logo} alt="Rick and Morty" />
@@ -102,8 +109,8 @@ export default function Home() {
                 </div>
             </div>
 
-            <main>
-                <div className="px-10">
+            <div className="px-10">
+                <main className="mb-20">
                     <div className="flex justify-between items-center my-16">
                         <div className="min-w-100 relative select-none">
                             <input
@@ -142,6 +149,7 @@ export default function Home() {
                         <div className="grid grid-cols-4 gap-4">
                             {characters.slice(0, 8).map((character) => (
                                 <CharacterCard
+                                    key={character.id}
                                     image={character.image}
                                     name={character.name}
                                     specie={character.species}
@@ -167,16 +175,31 @@ export default function Home() {
                     </section>
 
                     {/* locations */}
-                    <section className="mb-16">
-                        <div className="flex items-center gap-4 mb-8">
+                    <section className="mb-20">
+                        <div className="flex items-center gap-4 mb-10">
                             <h2 className="text-2xl font-bold">Localizações</h2>
                             <IconButton icon={SquaresFourIcon} text="Ver Todos" className="bg-primary text-white" />
                         </div>
 
-                        <div>{/* cards */}</div>
+                        {/* cards */}
+                        <div className="grid grid-cols-5 gap-4">
+                            {locations.slice(0, 5).map((location) => (
+                                <LocationCard key={location.id} data={location} />
+                            ))}
+                        </div>
                     </section>
-                </div>
-            </main>
+
+                    <div className="flex justify-between items-center">
+                        <img className="w-auto h-12" src={Logo} alt="Rick and Morty" />
+
+                        <a href="#hero" className="flex items-center gap-2">
+                            <p>Voltar ao topo</p>
+                            <img src={ArrowCircleUpIcon} alt="" />
+                        </a>
+                    </div>
+                </main>
+                <Footer />
+            </div>
         </>
     );
 }
