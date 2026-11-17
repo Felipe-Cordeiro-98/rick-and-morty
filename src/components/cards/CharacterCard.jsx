@@ -7,14 +7,9 @@ import InfoIcon from "../../assets/icons/info.svg";
 
 import IconButton from "../ui/IconButton";
 import { useState } from "react";
+import IconLink from "../ui/IconLink";
 
-export default function CharacterCard({
-    image = "/img.png",
-    name = "Rick Sanchez",
-    status = "Vivo",
-    specie = "Humano",
-    locationName = "Earth",
-}) {
+export default function CharacterCard({ id, image, name, status, specie, locationName }) {
     const [isFavorite, setIsFavorite] = useState(false);
 
     return (
@@ -26,7 +21,9 @@ export default function CharacterCard({
 
             <div className="relative">
                 {/* character name */}
-                <h3 className="max-w-48.5 my-4 font-bold truncate" title={name}>{name}</h3>
+                <h3 className="max-w-48.5 my-4 font-bold truncate" title={name}>
+                    {name}
+                </h3>
 
                 {/* favorite button */}
                 <IconButton
@@ -38,23 +35,39 @@ export default function CharacterCard({
 
                 {/* character info */}
                 <div className="mb-6">
+                    {/* status */}
                     <div className="flex gap-1">
                         <img src={PulseIcon} alt="" width={16} height={16} />
-                        <p className="truncate" title={status}>{status}</p>
+                        <p className="truncate" title={status}>
+                            {status}
+                        </p>
                     </div>
+
+                    {/* specie */}
                     <div className="flex gap-1">
                         <img src={AlienIcon} alt="" width={16} height={16} />
-                        <p className="truncate" title={specie}>{specie}</p>
+                        <p className="truncate" title={specie}>
+                            {specie}
+                        </p>
                     </div>
+
+                    {/* location name */}
                     <div className="flex gap-1">
                         <img src={PlanetIcon} alt="" width={16} height={16} />
-                        <p className="truncate" title={locationName}>{locationName}</p>
+                        <p className="truncate" title={locationName}>
+                            {locationName}
+                        </p>
                     </div>
                 </div>
 
                 {/* learn more */}
                 <div className="flex justify-end">
-                    <IconButton icon={InfoIcon} text="Saiba mais" className="bg-primary text-white" />
+                    <IconLink
+                        icon={InfoIcon}
+                        text="Saiba mais"
+                        to={`/characters/${id}`}
+                        className="bg-primary text-white"
+                    />
                 </div>
             </div>
         </div>
