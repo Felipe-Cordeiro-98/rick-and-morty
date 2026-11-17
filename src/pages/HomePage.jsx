@@ -20,37 +20,16 @@ import Footer from "../components/Footer";
 
 import { Link } from "react-router";
 import { useState, useEffect } from "react";
-import { useCharacters } from "../hooks/useCharacters"
+import { useCharacters } from "../hooks/useCharacters";
+import { useEpisodes } from "../hooks/useEpisodes";
 
 export default function Home() {
     const { characters } = useCharacters();
-    const [episodes, setEpisodes] = useState([]);
+    const { episodes } = useEpisodes();
     const [locations, setLocations] = useState([]);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    useEffect(() => {
-        async function fetchEpisodes() {
-            try {
-                const response = await fetch("https://rickandmortyapi.com/api/episode");
-
-                if (!response.ok) {
-                    throw new Error("Erro ao buscar episódios");
-                }
-
-                const data = await response.json();
-
-                setEpisodes(data.results);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchEpisodes();
-    }, []);
 
     useEffect(() => {
         async function fetchLocations() {
