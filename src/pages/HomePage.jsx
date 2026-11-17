@@ -23,10 +23,11 @@ import { Link } from "react-router";
 import { useCharacters } from "../hooks/useCharacters";
 import { useEpisodes } from "../hooks/useEpisodes";
 import { useLocations } from "../hooks/useLocations";
+import EpisodeCardSkeleton from "../components/cards/EpisodeCardSkeleton";
 
 export default function Home() {
     const { characters, loading: charactersLoading, error: charactersError } = useCharacters();
-    const { episodes } = useEpisodes();
+    const { episodes, loading: episodesLoading, error: episodesError } = useEpisodes();
     const { locations } = useLocations();
 
     return (
@@ -129,14 +130,28 @@ export default function Home() {
                     <section className="mb-16">
                         <div className="flex items-center gap-4 mb-8">
                             <h2 className="text-2xl font-bold">Episódios</h2>
-                            <IconButton icon={SquaresFourIcon} text="Ver Todos" className="bg-primary text-white" />
+                            <IconLink
+                                icon={SquaresFourIcon}
+                                text="Ver todos"
+                                to="/episodes"
+                                className="bg-primary text-white"
+                            />
                         </div>
 
                         {/* cards */}
                         <div className="grid grid-cols-4 gap-4">
-                            {episodes.slice(0, 4).map((episode) => (
-                                <EpisodeCard key={episode.id} data={episode} />
-                            ))}
+                            {episodesLoading
+                                ? Array.from({ length: 4 }).map((_, index) => <EpisodeCardSkeleton key={index} />)
+                                : episodes
+                                      .slice(0, 4)
+                                      .map((episode) => (
+                                          <EpisodeCard
+                                              key={episode.id}
+                                              id={episode.id}
+                                              name={episode.name}
+                                              episode={episode.episode}
+                                          />
+                                      ))}
                         </div>
                     </section>
 
