@@ -13,8 +13,9 @@ import HeroLight from "../assets/heroLight.png";
 
 import IconLink from "../components/ui/IconLink";
 import IconButton from "../components/ui/IconButton";
-import CharacterCard from "../components/CharacterCard";
-import EpisodeCard from "../components/EpisodeCard";
+import CharacterCard from "../components/cards/CharacterCard";
+import CharacterCardSkeleton from "../components/cards/CharacterCardSkeleton";
+import EpisodeCard from "../components/cards/EpisodeCard";
 import LocationCard from "../components/cards/LocationCard";
 import Footer from "../components/Footer";
 
@@ -24,7 +25,7 @@ import { useEpisodes } from "../hooks/useEpisodes";
 import { useLocations } from "../hooks/useLocations";
 
 export default function Home() {
-    const { characters } = useCharacters();
+    const { characters, loading: charactersLoading, error: charactersError } = useCharacters();
     const { episodes } = useEpisodes();
     const { locations } = useLocations();
 
@@ -101,15 +102,20 @@ export default function Home() {
 
                         {/* cards */}
                         <div className="grid grid-cols-4 gap-4">
-                            {characters.slice(0, 8).map((character) => (
-                                <CharacterCard
-                                    key={character.id}
-                                    image={character.image}
-                                    name={character.name}
-                                    specie={character.species}
-                                    locationName={character.origin.name}
-                                />
-                            ))}
+                            {charactersLoading
+                                ? Array.from({ length: 8 }).map((_, index) => <CharacterCardSkeleton key={index} />)
+                                : characters
+                                      .slice(0, 8)
+                                      .map((character) => (
+                                          <CharacterCard
+                                              key={character.id}
+                                              image={character.image}
+                                              name={character.name}
+                                              status={character.status}
+                                              specie={character.species}
+                                              locationName={character.location.name}
+                                          />
+                                      ))}
                         </div>
                     </section>
 
