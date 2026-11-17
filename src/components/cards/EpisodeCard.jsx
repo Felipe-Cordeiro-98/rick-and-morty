@@ -4,8 +4,8 @@ import HeartIcon from "../assets/icons/heartFavorite.svg";
 import HeartFilledIcon from "../assets/icons/heartFavoriteFilled.svg";
 
 import { useState } from "react";
-import IconButton from "./IconButton";
-import IconLink from "./IconLink";
+import IconButton from "./ui/IconButton";
+import IconLink from "./ui/IconLink";
 
 export default function EpisodeCard({ data }) {
     const [isFavorite, setIsFavorite] = useState(false);

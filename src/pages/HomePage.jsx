@@ -11,11 +11,11 @@ import ArrowCircleUpIcon from "../assets/icons/arrowCircleUp.svg";
 import Logo from "../assets/logoA.png";
 import HeroLight from "../assets/heroLight.png";
 
-import IconLink from "../components/IconLink";
-import IconButton from "../components/IconButton";
+import IconLink from "../components/ui/IconLink";
+import IconButton from "../components/ui/IconButton";
 import CharacterCard from "../components/CharacterCard";
 import EpisodeCard from "../components/EpisodeCard";
-import LocationCard from "../components/LocationCard";
+import LocationCard from "../components/cards/LocationCard";
 import Footer from "../components/Footer";
 
 import { Link } from "react-router";

@@ -3,8 +3,8 @@ import InfoIcon from "../assets/icons/info.svg";
 import HeartIcon from "../assets/icons/heartFavorite.svg";
 import HeartFilledIcon from "../assets/icons/heartFavoriteFilled.svg";
 
-import IconLink from "./IconLink";
-import IconButton from "./IconButton";
+import IconLink from "../ui/IconLink";
+import IconButton from "../ui/IconButton";
 
 import { useState } from "react";
 

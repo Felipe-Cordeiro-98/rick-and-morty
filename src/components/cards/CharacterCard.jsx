@@ -5,7 +5,7 @@ import HeartIcon from "../assets/icons/heartFavorite.svg";
 import HeartFilledIcon from "../assets/icons/heartFavoriteFilled.svg";
 import InfoIcon from "../assets/icons/info.svg";
 
-import IconButton from "./IconButton";
+import IconButton from "./ui/IconButton";
 import { useState } from "react";
 
 export default function CharacterCard({
